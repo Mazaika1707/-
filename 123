@@ -1,0 +1,131 @@
+# Создатель Витушко Данил 
+'''импортируем необходимые библиотеки'''
+import tkinter
+from tkinter import *
+from tkinter.filedialog import asksaveasfile, askopenfile
+from tkinter.messagebox import showerror
+from tkinter import messagebox
+
+FILE_NAME = tkinter.NONE
+#прописываем логику к каждой кнопке 
+def save_file():
+    data = text.get('1.0', tkinter.END)
+    out = open(FILE_NAME, 'w')
+    out.write(data)
+    out.close()
+
+def open_file():
+    global FILE_NAME
+    inp = askopenfile(mode="r" )
+    if inp is None:
+        return
+    FILE_NAME = inp.name
+    data = inp.read()
+    text.delete('1.0', tkinter.END)
+    text.insert('1.0', data)
+# прописываем всплывающие окна 
+def clier_file():
+    messagebox.showinfo("Уведомление", "Удоление записи досткпно не забудьте сохранить файл")
+
+def db():
+    messagebox.showinfo("Уведомление", "Запись добавлена не забудьте сохранить файл")
+
+def obnovlenie():
+    messagebox.showinfo("Уведомление", "Данные обновлены")
+# прописываем логику кнопок 
+def izmenenie_1():
+     root.configure(background="orange")
+     text.configure(background="orange")
+def clier_file1():
+    text.delete('1.0', tkinter.END)
+
+def izmenenie_2():
+    text.configure(fg="red")
+# создание окна ткинтера 
+root = tkinter.Tk()
+root.title("Усынин Владимир Андреевич")# пишем титульник
+# ширина и высота блоков
+root.minsize(width=500, height=600)
+root.maxsize(width=500, height=500)
+# прописываем скролбар
+text = tkinter.Text(root, width=400, height=15, wrap="word")
+scrollb = Scrollbar(root, orient=VERTICAL, command=text.yview)
+scrollb.pack(side="right", fill="y")
+text.configure(yscrollcommand=scrollb.set)
+# закрывает текстовый блок
+text.pack()
+
+# создаём кнопки на экране и задаём пораметры для них 
+btn = Button(text="добавление",
+    foreground="#ccc",
+    background="#555",
+    padx='15',
+    pady='4',
+    font='16',
+    command=db)
+btn.pack()
+# создаём кнопку для обновления записи
+btn1 = Button(text="обновление записей",
+    foreground="#ccc",
+    background="#555",
+    padx='15',
+    pady='4',
+    font='16',
+    command=obnovlenie)
+btn1.pack()
+# создаём кнопку для удаление записи 
+btn2 = Button(text="удоление записи",
+    foreground="#ccc",
+    background="#555",
+    padx='15',
+    pady='4',
+    font='16',
+    command=clier_file)
+btn2.pack()
+# создаём кнопку для очистки списка
+btn3 = Button(text="очистка списка",
+    foreground="#ccc",
+    background="#555",
+    padx='15',
+    pady='4',
+    font='16',
+    command=clier_file1)
+btn3.pack()
+# создаём кнопку для сохранения в файла
+btn4 = Button(text="сохранение в файл",
+    foreground="#ccc",
+    background="#555",
+    padx='15',
+    pady='4',
+    font='16',
+    command=save_file)
+btn4.pack()
+# создаём кнопку для чтения 
+btn5 = Button(text="чтение файлаа",
+    foreground="#ccc",
+    background="#555",
+    padx='15',
+    pady='4',
+    font='16',
+    command=open_file)
+btn5.pack()
+# создаём кнопку для изменения bg
+ btn6 = Button(text="Изменить фон",
+    foreground="#ccc",
+    background="#555",
+    padx='15',
+    pady='4',
+    font='16',
+    command=izmenenie_1)
+btn6.pack()
+# создаём кнопку для изменения fg
+btn7 = Button(text="Изменить цвет текста",
+    foreground="#ccc",
+    background="#555",
+    padx='15',
+    pady='4',
+    font='16',
+    command=izmenenie_2)
+btn7.pack() 
+# для постоянного вывода окна 
+root.mainloop()
